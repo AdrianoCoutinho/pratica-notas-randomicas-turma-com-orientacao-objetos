@@ -109,8 +109,53 @@ const exercicio6 = (): void => {
 
   const gabarito: string[] = ["A", "B", "C", "D", "A", "B", "C", "C", "D", "A"];
 
-  const listPosProva = alunos.map((aluno) => aluno.addPoints(gabarito));
-  console.log(alunos);
+  alunos.map((aluno) => aluno.addPoints(gabarito));
+  const aprovados = alunos
+    .filter((aluno) => aluno.status === "Aprovado")
+    .map((item) => {
+      return `Nome: ${item.nome} - Nota: ${item.nota}`;
+    });
+  const reprovados = alunos
+    .filter((aluno) => aluno.status === "Reprovado")
+    .map((item) => {
+      return `Nome: ${item.nome} - Nota: ${item.nota}`;
+    });
+
+  const mediaTurma =
+    alunos.reduce((current, item) => {
+      return current + item.nota;
+    }, 0) / alunos.length;
+
+  const melhorNota = alunos.reduce((current, item) => {
+    return Math.max(current, item.nota);
+  }, -Infinity);
+
+  const piorNota = alunos.reduce((current, item) => {
+    return Math.min(current, item.nota);
+  }, melhorNota);
+
+  const melhorAluno = alunos
+    .filter((aluno) => aluno.nota === melhorNota)
+    .map((aluno) => {
+      return `Nome: ${aluno.nome} - Nota ${aluno.nota}`;
+    });
+
+  const piorAluno = alunos
+    .filter((aluno) => aluno.nota === piorNota)
+    .map((aluno) => {
+      return `Nome: ${aluno.nome} - Nota ${aluno.nota}`;
+    });
+
+  console.log(`== Alunos aprovados ==`);
+  console.log(aprovados);
+  console.log(`\n\== Alunos reprovados ==`);
+  console.log(reprovados);
+  console.log(`\n\== Média da turma ==`);
+  console.log(`Média: ${mediaTurma}`);
+  console.log(`\n\== Melhor aluno da turma ==`);
+  console.log(melhorAluno);
+  console.log(`\n\== Pior aluno da turma ==`);
+  console.log(piorAluno);
 };
 
 exercicio6();

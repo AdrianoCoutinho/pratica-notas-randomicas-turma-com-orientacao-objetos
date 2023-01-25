@@ -2,13 +2,12 @@ export class Aluno {
   public nome: string;
   public idade: number;
   public nota: number;
-  public status: string;
+  status?: "Aprovado" | "Reprovado";
 
   constructor(nome: string, idade: number) {
     this.nome = nome;
     this.idade = idade;
     this.nota = 0;
-    this.status = "aprovado";
   }
 
   addPoints(gabarito: string[]) {
@@ -20,8 +19,6 @@ export class Aluno {
         this.nota++;
       }
     }
-    if (this.nota < 6) {
-      this.status = "reprovado";
-    }
+    this.status = this.nota! >= 6 ? "Aprovado" : "Reprovado";
   }
 }
